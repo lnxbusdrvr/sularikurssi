@@ -1,4 +1,4 @@
-/* ep 20230719 harjoitus4.2.ino */
+/* ep 20230720 harjoitus4.2.ino */
 /******************************************************************/
 
 /* Otetaan käyttöön
@@ -32,9 +32,7 @@ void setup() {
 
   Serial.begin(9600);  /* Alusta sarjaportti */
   /* Tämä aiheuttaa ainakin TINKERCAD:ssa EEPROM.h kanssa header not found:in */
-  //EEPROM.begin(EEPROM_KOKO); /* Alusta EEPROM-muisti 1 kilotavun (kt) (Engl. kB) kokoiseksi */
-  /* Nämä aiheuttaa TINKERCAD:ssa EEPROM.h kanssa header not found:in */
-  //attachInterrupt(digitalPinToInterrupt(NAPPI1), keskeytys, FALLING);
+  EEPROM.begin(EEPROM_KOKO); /* Alusta EEPROM-muisti 1 kilotavun (kt) (Engl. kB) kokoiseksi */
 
   /* Asetetaan LED sammutetuksi alussa */
   digitalWrite(LED, LOW); 
@@ -90,7 +88,8 @@ void tyhjennaEeprom() {
                          * kirjoitusta, jolloin se on käyttäkelvoton
                          */
 
-  //}
+  }
+  muistipaikka = 0;
   Serial.println("EEPROM on tyhjä"); 
 }
 
