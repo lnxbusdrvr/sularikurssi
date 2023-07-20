@@ -18,8 +18,6 @@
 #define NAPPI3 4
 /* lämpösensori (SENSOR) on ARDUINO pinni A0:ssa */
 #define SENSOR A0
-/* EEPROMin koko 1 kt/kB */
-#define EEPROM_KOKO 1024
 
 /* Alustetaan muistipaikkalaskuri */
 int muistipaikka = 0;
@@ -32,7 +30,7 @@ void setup() {
 
   Serial.begin(9600);  /* Alusta sarjaportti */
   /* Tämä aiheuttaa ainakin TINKERCAD:ssa EEPROM.h kanssa header not found:in */
-  EEPROM.begin(EEPROM_KOKO); /* Alusta EEPROM-muisti 1 kilotavun (kt) (Engl. kB) kokoiseksi */
+  //EEPROM.init(1024); /* Alusta EEPROM-muisti 1 kilotavun (kt) (Engl. kB) kokoiseksi */
 
   /* Asetetaan LED sammutetuksi alussa */
   digitalWrite(LED, LOW); 
@@ -66,12 +64,12 @@ void kirjoitaEepromMuistiin() {
    */
   EEPROM.write(muistipaikka, satunnaisluku);
   delay(200); /* Odota kaksi sekuntia, jotta EEPROM:iin ehditään kirjoittaa */
-    /* DEBUG
+    // DEBUG
     Serial.print("Muistipaikka: ");
     Serial.print(muistipaikka);
     Serial.print(" nro: ");
     Serial.println(satunnaisluku);
-    */
+    //
   muistipaikka++; /* kasvattaa muistipaikka-muuttujan yhdellä numerolla */
 }
 
@@ -106,7 +104,7 @@ void lueEepromJaTulosta() {
   eepromSize -= eepromSize % 2;
 
   for (int i = 0; i < eepromSize; i += 2) {
-    byte aArvo1 = EEPROM.read(i); // Ensimmäinen tavu
+    byte bArvo1 = EEPROM.read(i); // Ensimmäinen tavu
     delay(200); /* odotetaan hetki */
     byte bArvo2 = EEPROM.read(i + 1); // Toinen tavu
 
@@ -123,3 +121,4 @@ void lueEepromJaTulosta() {
     Serial.println(iArvo);
   }
 }
+
